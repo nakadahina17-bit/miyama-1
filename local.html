@@ -1,0 +1,204 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MICHIRU Local｜美山 地域運営側デモ</title><style>
+:root{
+  --bg:#f5f2ea;--paper:#fffdf8;--ink:#1e2520;--muted:#687069;--green:#2f5c45;
+  --green2:#dfeadf;--green3:#eef5ee;--gold:#a8752d;--line:#ddd8cf;--red:#9b4b3f;
+  --blue:#385c7a;--shadow:0 12px 38px rgba(37,48,40,.08)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:var(--bg);color:var(--ink)}
+a{color:inherit}
+header{position:sticky;top:0;z-index:50;background:rgba(245,242,234,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.container{max-width:1160px;margin:auto;padding:0 20px}
+.topbar{display:flex;align-items:center;justify-content:space-between;min-height:68px;gap:14px}
+.brand{font-weight:900;letter-spacing:.12em;font-size:22px}
+.brand small{font-weight:600;font-size:11px;letter-spacing:.04em;color:var(--muted);display:block}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a,.navbtn{padding:9px 12px;border-radius:11px;text-decoration:none;font-size:13px;border:1px solid transparent}
+nav a:hover,.navbtn:hover{background:var(--paper);border-color:var(--line)}
+main{padding:28px 0 80px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+.eyebrow{font-size:12px;font-weight:800;color:var(--green);letter-spacing:.08em}
+h1{font-size:clamp(35px,5.6vw,68px);line-height:1.02;margin:10px 0 16px;letter-spacing:-.04em}
+h2{font-size:28px;margin:0 0 14px;letter-spacing:-.02em}
+h3{font-size:18px;margin:0 0 8px}
+p{line-height:1.75;color:var(--muted);margin:8px 0}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button,.button{appearance:none;border:0;border-radius:13px;padding:12px 16px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+.primary{background:var(--green);color:#fff}.soft{background:var(--green2);color:var(--green)}.ghost{background:#ece7de;color:var(--ink)}
+section{margin-top:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pill{display:inline-flex;padding:5px 8px;border-radius:999px;background:var(--green3);font-size:11px;margin:3px 3px 0 0}
+.pill.gold{background:#f7eddc;color:#77511d}.pill.blue{background:#e8eff4;color:var(--blue)}.pill.red{background:#f7e8e5;color:var(--red)}
+.choice{background:white;border:1px solid var(--line);border-radius:15px;padding:14px;text-align:left;cursor:pointer}
+.choice.active{outline:2px solid var(--green);background:#f0f6f0}
+label{font-size:12px;font-weight:800;display:block;margin:12px 0 6px}
+select,input,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;font:inherit}
+.step{display:none}.step.active{display:block}
+.rec{border:1px solid var(--line);border-radius:17px;padding:16px;background:white;margin-top:10px}
+.rec .title{font-weight:900;font-size:19px}
+.meta{font-size:12px;color:var(--muted);margin-top:6px}
+.route{position:relative;margin-top:10px}
+.route:before{content:"";position:absolute;left:15px;top:22px;bottom:22px;width:2px;background:var(--green2)}
+.stop{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:8px 0;position:relative}
+.num{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:900;z-index:1}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi{background:#f2f5f1;border-radius:16px;padding:14px}
+.kpi b{display:block;font-size:24px}.kpi span{font-size:11px;color:var(--muted)}
+.notice{background:#fff5e8;color:#74501f;border:1px solid #eed6b1;padding:12px;border-radius:13px;font-size:12px;line-height:1.6}
+.sourcebox{font-size:12px;background:#f3f1ec;border-radius:14px;padding:13px;margin-top:12px}
+.sourcebox a{word-break:break-all}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.bar{height:10px;background:#e9e5dd;border-radius:999px;overflow:hidden;margin-top:6px}.bar>i{height:100%;display:block;background:var(--green);border-radius:999px}
+.badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--green2);color:var(--green);font-size:11px;font-weight:800}
+.flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:14px}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.small{font-size:11px;color:var(--muted)}
+footer{padding:28px 0 50px;color:var(--muted);font-size:12px}
+@media(max-width:820px){.hero,.grid2,.split{grid-template-columns:1fr}.grid3,.grid4,.kpis{grid-template-columns:1fr 1fr}nav{display:none}}
+@media(max-width:520px){.grid3,.grid4,.kpis{grid-template-columns:1fr}h1{font-size:42px}}
+</style></head>
+<body>
+<header><div class="container topbar">
+<div class="brand">MICHIRU<small>Local / DMO・地域事業者向け</small></div>
+<nav><a href="#dash">ダッシュボード</a><a href="#match">マッチング</a><a href="#projects">地域プロジェクト</a><a href="#kpi">KPI</a><a href="traveler.html">← 観光客側</a></nav>
+</div></header>
+<main class="container">
+<section class="hero">
+<div class="card">
+<div class="eyebrow">LOCAL MANAGEMENT × AI</div>
+<h1>「来てほしい」を、<br>旅行者の「したい」へ。</h1>
+<p>DMO・自治体・地域事業者が登録した地域資源や保全ニーズを、旅行者の興味とAIでマッチング。RESASのように「地域を見る」だけでなく、「需要と地域課題のギャップ」を可視化します。</p>
+<div class="btns"><a class="button primary" href="#dash">美山ダッシュボード</a><a class="button soft" href="#projects">実在プロジェクトを見る</a></div>
+</div>
+<div class="card">
+<div class="eyebrow">地域側の価値</div>
+<div class="grid2">
+<div class="rec"><div class="title">需要を知る</div><p>観光客が「何をしたいか」を検索前の段階から収集。</p></div>
+<div class="rec"><div class="title">分散させる</div><p>有名スポットから周辺店舗・体験・文化資源へ回遊。</p></div>
+<div class="rec"><div class="title">還元を測る</div><p>消費・寄付・保存協力金など地域への還元を把握。</p></div>
+<div class="rec"><div class="title">施策を改善</div><p>RESAS型ダッシュボードでKPIと需要ギャップを継続観測。</p></div>
+</div>
+</div>
+</section>
+
+<section id="dash" class="card">
+<div class="eyebrow">RESAS-LIKE DASHBOARD</div><h2>美山 観光マッチング・ダッシュボード</h2>
+<div class="notice">下の「ユーザー検索傾向」「マッチ数」「回遊率」はハッカソン用のデモ値です。公式値ではありません。公式KPIは下段に別表示しています。</div>
+<div class="kpis" style="margin-top:12px">
+<div class="kpi"><span>今月の体験ニーズ（デモ）</span><b>1,284</b></div>
+<div class="kpi"><span>地域資源マッチ（デモ）</span><b>836</b></div>
+<div class="kpi"><span>周辺スポット追加率（デモ）</span><b>41%</b></div>
+<div class="kpi"><span>地域還元タグ選択率（デモ）</span><b>27%</b></div>
+</div>
+<div class="grid2" style="margin-top:14px">
+<div class="rec"><h3>検索前ニーズ（デモ）</h3>
+<div>食 31%<div class="bar"><i style="width:31%"></i></div></div>
+<div style="margin-top:10px">自然 25%<div class="bar"><i style="width:25%"></i></div></div>
+<div style="margin-top:10px">文化・建築 20%<div class="bar"><i style="width:20%"></i></div></div>
+<div style="margin-top:10px">ものづくり 14%<div class="bar"><i style="width:14%"></i></div></div>
+<div style="margin-top:10px">写真・映え 10%<div class="bar"><i style="width:10%"></i></div></div>
+</div>
+<div class="rec"><h3>AIによる地域課題の示唆（デモ）</h3>
+<p><b>1.</b> 「かやぶき景観」への興味は強いが、文化体験への遷移余地が大きい。</p>
+<p><b>2.</b> 食ニーズが高いため、かやぶきの里から道の駅・地元飲食店への導線を強化。</p>
+<p><b>3.</b> 「一人」「半日」の検索に対して、予約不要の短時間体験を増やす余地。</p>
+<p><b>4.</b> 地域還元の仕組みをユーザーに可視化すると、保存協力型商品の選択肢が増える可能性。</p>
+</div>
+</div>
+</section>
+
+<section id="match" class="card">
+<div class="eyebrow">TWO-SIDED MATCHING</div><h2>観光客の希望 × 地域のニーズ</h2>
+<div class="grid2">
+<div>
+<label>旅行者の興味</label><select id="uInterest"><option>文化・古い建物</option><option>食</option><option>ものづくり</option><option>自然</option><option>写真</option></select>
+<label>旅行スタイル</label><select id="uStyle"><option>一人・半日</option><option>友人と・1日</option><option>家族・1日</option><option>恋人と・1泊2日</option></select>
+<label>重視すること</label><select id="uValue"><option>地域らしさ</option><option>人混み回避</option><option>地域貢献</option><option>予算</option></select>
+<div class="btns"><button class="primary" onclick="runMatch()">マッチングを実行</button></div>
+</div>
+<div class="rec" id="matchResult">
+<div class="title">例：文化・古い建物</div>
+<p>AIは「かやぶきの里」だけで終わらせず、藍美術館 → 野田商店 → 地元食へつなぎます。</p>
+<span class="pill gold">景観保全</span><span class="pill">文化継承</span><span class="pill">地域内消費</span>
+</div>
+</div>
+<hr>
+<h3>マッチングロジック（デモ）</h3>
+<table class="table">
+<tr><th>旅行者側</th><th>AIで解釈</th><th>地域側データ</th><th>提案</th></tr>
+<tr><td>「古い建物が好き」</td><td>景観・暮らし・手仕事への関心</td><td>保存会、藍美術館、茅葺き体験</td><td>見る＋学ぶ＋支えるルート</td></tr>
+<tr><td>「地元のものを食べたい」</td><td>地域食・生産者・特産品</td><td>美山牛乳、地元飲食、道の駅</td><td>食＋買い物で域内消費を増やす</td></tr>
+<tr><td>「人混みを避けたい」</td><td>時間・場所の分散</td><td>周辺資源、混雑情報、営業時間</td><td>主要地点以外へ自然に回遊</td></tr>
+</table>
+</section>
+
+<section id="projects" class="card">
+<div class="eyebrow">VERIFIED LOCAL PROJECTS</div><h2>美山の実在する地域還元・保存の仕組み</h2>
+<div class="grid2">
+<div class="rec"><div class="title">かやぶきの里保存</div><p>一般社団法人京都・美山・北村かやぶきの里保存会。駐車場料金・美山民俗資料館入館料を、茅葺き屋根の葺き替えや駐車場整備等に活用。</p><span class="pill gold">建物保存</span><span class="pill">景観保全</span></div>
+<div class="rec"><div class="title">DMOガイドツアーからの還元</div><p>美山DMOの「かやぶきの里ガイドツアー」は、収益の約17%をかやぶきの里保存会に寄付すると戦略資料に記載。</p><span class="pill gold">観光収益→保存</span></div>
+<div class="rec"><div class="title">ベニバナヤマシャクヤク保全</div><p>内久保環境史跡保存会。鑑賞会の環境保全協力金を、ベニバナヤマシャクヤクの保護・保全に活用。</p><span class="pill gold">自然保全</span></div>
+<div class="rec"><div class="title">芦生の森ガイドツアー</div><p>芦生もりびと協会。ガイドツアー収益の一部を京都大学芦生研究林基金に寄付する仕組みが戦略資料に記載。</p><span class="pill gold">森林保全</span></div>
+<div class="rec"><div class="title">野田商店</div><p>保存会が2024年に営業再開。応援グッズ売上の一部を、景観や暮らしを守る保存会活動に活用。</p><span class="pill gold">買い物→保存活動</span><div class="btns"><a class="button soft" target="_blank" href="https://miyamanavi.com/sightseeing/noda-shop">公式</a></div></div>
+<div class="rec"><div class="title">茅葺き体験</div><p>美山FUTON&Breakfastが実施。職人技の歴史や仕組みを学び、屋根葺きを体験できる有料プログラム。</p><span class="pill">体験価値</span><span class="pill">技術への理解</span><div class="btns"><a class="button soft" target="_blank" href="https://miyamanavi.com/activity/kayabuki">公式</a></div></div>
+</div>
+</section>
+
+<section class="card">
+<div class="eyebrow">PROJECT REGISTRATION UI</div><h2>地域側が「来てほしい理由」を登録</h2>
+<div class="grid2">
+<div><label>プロジェクト名</label><input value="かやぶき景観を次世代へ"></div>
+<div><label>運営主体</label><input value="地域団体 / DMO / 店舗"></div>
+<div><label>観光客にしてほしい行動</label><select><option>訪問してほしい</option><option>体験してほしい</option><option>購入してほしい</option><option>寄付・協力金に参加してほしい</option></select></div>
+<div><label>地域課題タグ</label><select><option>文化・景観保全</option><option>自然保全</option><option>地域雇用</option><option>地産地消</option><option>観光分散</option></select></div>
+</div>
+<label>背景・ストーリー</label><textarea rows="4">観光客に景観を見てもらうだけでなく、なぜ保存が必要なのか、誰が守っているのかを知ってもらい、地域内消費や保存活動への参加につなげたい。</textarea>
+<div class="btns"><button class="primary" onclick="alert('デモ：登録内容をAIマッチング対象に追加しました。')">AIマッチング対象に登録</button></div>
+</section>
+
+<section id="kpi" class="card">
+<div class="eyebrow">OFFICIAL STRATEGY KPI</div><h2>美山DMOの公式KPIと、このサービスの接続</h2>
+<table class="table">
+<tr><th>公式KPI（2030年度目標）</th><th>目標値</th><th>MICHIRUで補助できること</th></tr>
+<tr><td>1人当たり旅行消費額</td><td>1,457円</td><td>周遊・食・買い物・体験のクロス推薦</td></tr>
+<tr><td>延べ宿泊者数</td><td>23,170泊</td><td>半日→1泊への体験拡張提案</td></tr>
+<tr><td>来訪者満足度</td><td>90%</td><td>個人の興味に合わせた推薦理由付き提案</td></tr>
+<tr><td>持続可能な観光に対する住民満足度</td><td>90%</td><td>混雑分散・地域還元の可視化</td></tr>
+<tr><td>月別来訪者数の平準化率</td><td>20%</td><td>閑散期の体験・食・文化コンテンツ推薦</td></tr>
+<tr><td>域内調達率（地域還元率）</td><td>2026年度実績測定後に設定</td><td>地域事業者への送客・還元タグ・経路分析</td></tr>
+<tr><td>美山小中学校の地域愛着指数</td><td>80%</td><td>地域のストーリー・文化資源のデジタル可視化</td></tr>
+</table>
+<div class="sourcebox"><b>出典</b><br>「南丹市美山町観光地経営戦略」／一般社団法人南丹市美山観光まちづくり協会（美山DMO）<br>
+<a target="_blank" href="https://miyamanavi.com/files/user/vision2026.pdf">https://miyamanavi.com/files/user/vision2026.pdf</a></div>
+</section>
+
+<section class="card"><div class="eyebrow">DATA ARCHITECTURE</div><h2>将来の拡張</h2>
+<div class="grid3">
+<div class="rec"><div class="title">RESAS・公的データ</div><p>人口、産業、観光、人流など地域のマクロ状況を重ねる。</p></div>
+<div class="rec"><div class="title">地域一次情報</div><p>DMO・自治体・店舗が営業時間、予約、保存ニーズ、地域還元率等を登録。</p></div>
+<div class="rec"><div class="title">旅行者行動</div><p>匿名化した興味・選択・回遊データから需要ギャップを把握。</p></div>
+</div>
+<p class="small">実運用ではプライバシー保護、データ利用同意、各施設の情報更新責任、推薦の公平性を設計する必要があります。</p>
+</section>
+</main>
+<footer><div class="container">MICHIRU Local — Hackathon prototype. 「デモ」と明記した数値は架空のUI例であり、美山の実績値ではありません。</div></footer>
+<script>
+function runMatch(){
+ let a=document.getElementById('uInterest').value,b=document.getElementById('uStyle').value,c=document.getElementById('uValue').value;
+ let text='';
+ if(a==='文化・古い建物') text='かやぶきの里 → ちいさな藍美術館 → 野田商店を推奨。景観を見るだけでなく、文化背景と保存活動への接点をつくります。';
+ else if(a==='食') text='美山おもしろ農民倶楽部 → 美山のめぐみ牛乳工房 → 道の駅を推奨。食体験と地域産品購入をつなぎます。';
+ else if(a==='ものづくり') text='茅葺き体験を中心に、かやぶき景観・地域食へ接続。技術への理解と地域内消費を両立します。';
+ else if(a==='自然') text='自然文化村や保全活動と組み合わせ、景観消費だけでなく環境保全の背景を提示します。';
+ else text='写真目的の有名地点から、周辺文化・食・買い物へ派生させ、混雑と消費の偏りを緩和します。';
+ document.getElementById('matchResult').innerHTML='<span class="badge">AI MATCH</span><div class="title" style="margin-top:8px">'+a+' × '+b+'</div><p>'+text+'</p><p class="small">重視：'+c+'</p><span class="pill gold">地域課題と接続</span><span class="pill">周遊提案</span>';
+}
+</script>
+</body></html>
